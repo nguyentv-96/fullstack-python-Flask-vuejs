@@ -14,10 +14,12 @@ import "@splidejs/vue-splide/css/sea-green";
 import "@splidejs/vue-splide/css/core";
 
 const store = useGetProduct();
+
 onMounted(async () => {
   await store.getProductById({ id: 3 });
   currentImage.value = store.dataDetail?.images[1]?.image_url;
 });
+
 const items = ref({
   title: "Bộ Hub mở rộng Baseus Metal Gleam 2 Series 4K60Hz",
   price: "505.080",
@@ -52,7 +54,13 @@ const currentImage = ref(null);
 const updateImage = (url) => {
   currentImage.value = url;
 };
+
+function redirectUrl() {
+  window.open(store.dataDetail?.url_store, "_blank");
+}
 </script>
+
+
 <template>
   <div class="flex max-w-7xl mt-20 gap-4 p-5 mx-auto justify-between">
     <div class="w-1/2 border border-gray-300 rounded-xl mx-auto">
@@ -62,16 +70,9 @@ const updateImage = (url) => {
       <div>
         <Splide :options="{ perPage: 5, gap: '1rem' }">
           <SplideSlide v-for="data in store.dataDetail?.images" :key="data.id">
-            <div
-              class="shadow-md border w-full cursor-zoom-in"
-              @mouseover="updateImage(data.image_url)"
-            >
+            <div class="shadow-md border w-full cursor-zoom-in" @mouseover="updateImage(data.image_url)">
               <div>
-                <img
-                  :src="data.image_url"
-                  alt=""
-                  class="w-full h-auto hover:border-2 hover:border-orange-500"
-                />
+                <img :src="data.image_url" alt="" class="w-full h-auto hover:border-2 hover:border-orange-500" />
               </div>
             </div>
           </SplideSlide>
@@ -83,29 +84,24 @@ const updateImage = (url) => {
         Bộ Hub mở rộng Baseus Metal Gleam 2 Series 4K60Hz
       </div>
       <button
-        class="border border-[#F5701A] mt-5 py-1 px-2 rounded-full text-[#F5701A] hover:text-white hover:bg-[#F5701A]"
-      >
+        class="border border-[#F5701A] mt-5 py-1 px-2 rounded-full text-[#F5701A] hover:text-white hover:bg-[#F5701A]">
         Theo dõi giảm giá
       </button>
       <div class="flex mt-5 items-center gap-4">
         <div>Giá từ shopee</div>
-        <img
-          class="w-8 h-8 rounded-full"
+        <img class="w-8 h-8 rounded-full"
           src="https://lh3.googleusercontent.com/mvI9jsrKjP7Q7ZqYOXuJTRZF9Q1e4PZJjjmNAyzh6OKtxtSUNPK920MMFsXploU60VPMqHCdJLEMzaEF_ktvIXuII2IEamnw0Cr5Cb97_803ePqQQYOLtHQLrVUe9e2DPZ3MoxTp"
-          alt=""
-        />
+          alt="" />
       </div>
       <div class="flex mt-5 items-center gap-10">
         <div>
           <div class="text-2xl font-bold text-[#DC2626]">505.080 ₫</div>
           <div class="text-sm">549.000 ₫</div>
         </div>
-        <div
-          class="text-xs font-semibold bg-[#A7F3D0] text-[#047857] py-1 px-2 rounded-lg"
-        >
+        <div class="text-xs font-semibold bg-[#A7F3D0] text-[#047857] py-1 px-2 rounded-lg">
           43.920 ₫
         </div>
-        <button class="bg-[#F5701A] text-white text-sm py-3 px-6 rounded-md">
+        <button class="bg-[#F5701A] text-white text-sm py-3 px-6 rounded-md" @click="redirectUrl">
           Đến nơi bán ->
         </button>
       </div>
